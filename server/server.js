@@ -1,15 +1,28 @@
 const express = require('express')
-const app = express()
-
+const server = express()
+const cors = require('cors')
 const Correios = require('node-correios');
-let correio = new Correios();
+const correio = new Correios();
  
 const porta = 3011
 
-app.listen(porta, () => console.log(`Servidor rodando na porta ${porta}`))
+server.use(cors())
 
-app.get('/', (req, res)=>{
-    res.json('Rota de Busca CEP encontrada')
-    const { cep } = req.query; //recebendo dado do front
-    console.log("Dado Recebido " + cep)
+server.listen(porta, () => console.log(`Servidor rodando na porta ${porta}`))
+
+server.get('/', (req, res)=>{
+    res.send("Rota da raiz encontrada")
+    console.log('Rota raiz encontrada')
+})
+
+server.get('/autores', (req, res)=> {
+    res.send('Rota de autores encontrada')
+})
+
+server.get('/editoras', (req, res)=> {
+    res.send('Rota de Editoras encontrada')
+})
+
+server.get('/livros', (req, res)=> {
+    res.send('Rota de livros encontrada')
 })
